@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      line-height: 1.6;
+      background: #f9f9f9;
+      color: #333;
+    }
+    
+    header {
+      background: linear-gradient(90deg, #0066cc, #00cc99);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    nav a:hover {
+      text-decoration: underline;
+    }
+    
+    }
+    
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    
+    h1, h2 {
+      margin-bottom: 20px;
+      color: #0066cc;
+      text-align: center;
+    }
+    
+    /* Home */
+    #home {
+      display: block;
+      text-align: center;
+    }
+    
+    #home img {
+      border-radius: 50%;
+      width: 150px;
+      margin-bottom: 20px;
+      border: 4px solid #00cc99;
+    }
+    
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+    
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    
+    /* Blog */
+    .blog-post {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .blog-post h3 {
+      margin-bottom: 10px;
+      color: #00cc99;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #333;
+      color: white;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  
+  <header>
+    <h1>My PORTFOLIO</h1>
+    <nav>
+      <a onclick="showSection('home')">Home</a>
+      <a onclick="showSection('about')">About</a>
+      <a onclick="showSection('gallery')">Gallery</a>
+      <a onclick="showSection('blog')">Blog</a>
+      <a onclick="showSection('contact')">Contact</a>
+      <a onclick="showAll()">Show All</a>
+    </nav>
+  </header>
+  
+  <section id="home">
+    <img src="assets/images/myphoto.jpeg" alt="My Profile Photo">
+    <h2>Hi, I'm Manu Prakash Maurya</h2>
+    <p>Welcome to my personal portfolio website! I'm passionate about technology, traveling, and sharing ideas.</p>
+  </section>
+  
+  <section id="about">
+    <h2>About Me</h2>
+    <p>
+      I’m a professional with interests in solar PV research, Solar cells and modules inspection through imaging (Electroluminescence (EL), Photoluminescence (PL), and Thermal Imaging), traveling, and writing. This website showcases my work, projects, and passions. I believe in creativity blended with professionalism.
+    </p>
+  </section>
+  
+  <section id="gallery">
+    <h2>My Gallery</h2>
+    <div class="gallery">
+      <img src="assets/images/gallery1.png" alt="Gallery Image 1">
+      <img src="assets/images/gallery2.png" alt="Gallery Image 2">
+      <img src="assets/images/gallery3.png" alt="Gallery Image 3">
+      <img src="assets/images/gallery4.png" alt="Gallery Image 4">
+    </div>
+  </section>
+  
+  <section id="blog">
+    <h2>My Blog</h2>
+    <div class="blog-post">
+      <h3>Post Title 1</h3>
+      <p>This is a sample blog post. You can write about your projects, research, or travel experiences here.</p>
+    </div>
+    <div class="blog-post">
+      <h3>Post Title 2</h3>
+      <p>Another blog post goes here. Keep updating this section with your thoughts and experiences.</p>
+    </div>
+  </section>
+  
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <p>If you would like to get in touch, please email me directly at:</p>
+    <p style="text-align:center; font-weight:bold; font-size:1.2em;">
+      <a href="mailto:your-email@example.com">your-email@example.com</a>
+    </p>
+    <p>Feel free to contact me regarding projects, collaborations, or inquiries. Thank you!</p>
+  </section>
+  
+  <footer>
+    <p>&copy; 2025 My Portfolio | Designed by Me</p>
+  </footer>
+  
+  <script>
+    function showSection(id) {
+      document.querySelectorAll("section").forEach(sec => { sec.style.display = "none"; });
+      document.getElementById(id).style.display = "block";
+    }
+    function showAll() {
+      document.querySelectorAll("section").forEach(sec => { sec.style.display = "block"; });
+    }
+  </script>
+
+</body>
+</html>
