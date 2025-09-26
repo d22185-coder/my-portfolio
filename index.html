@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      line-height: 1.6;
+      background: #f9f9f9;
+      color: #333;
+    }
+    
+    header {
+      background: linear-gradient(90deg, #0066cc, #00cc99);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    nav a:hover {
+      text-decoration: underline;
+    }
+    
+    }
+    
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    
+    h1, h2 {
+      margin-bottom: 20px;
+      margin-top: 20px;
+      color: #0066cc;
+      text-align: center;
+    }
+    
+    /* Home */
+    #home {
+      display: block;
+      text-align: center;
+    }
+    
+    #home img {
+      border-radius: 50%;
+      width: 250px;
+      /* margin-bottom: 20px; */
+      margin-top: 20px;
+      border: 4px solid #00cc99;
+    }
+    
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      max-width:700px;  /* restrict gallery width */
+      margin: auto;    /* center it */
+    }
+    
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    
+    }
+    
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    
+    /* Blog */
+    .blog-post {
+      background: white;
+      padding: 20px;
+      margin: auto;   /* center the block */
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      max-width: 700px;  /* restrict width similar to text/gallery */
+    }
+    
+    .blog-post h3 {
+      margin-bottom: 10px;
+      color: #00cc99;
+    }
+    
+    .contact-email {
+      text-align: centre;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin: 30px auto;      /* auto horizontal margin, space top/bottom*/
+      /* padding: 10px 0; */     /* spacing inside the lines */
+      /* border-top: 2px solid #ccc; */      /* top line */
+      /* border-bottom: 2px solid #ccc; */  /* bottom line */
+      /* display: block; */        /* ensure it behaves like a block element */
+      max-width: 700px;    /* keeps it neat and centered */
+        }
+    
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #333;
+      color: white;
+      margin-top: 20px;
+    }
+    
+    section p {
+     text-align: justify;   /* justify alignment */
+     max-width: 700px;      /* ~15 words per line depending on screen size */
+     margin: auto;          /* center the block */
+   }
+   
+   #publications {
+     padding: 10px 10px;
+     max-width: 800px;
+     margin: auto;
+   }  
+   
+   #publications h2 {
+     text-align: center;
+     color: #0066cc;
+     margin-bottom: 30px;
+   }
+   
+   #publications ul {
+     list-style-type: disc;
+     padding-left: 20px;
+     line-height: 1.6;
+   }
+   
+   #publications li em {
+     color: #0066cc;
+   }
+   
+   #publications a {
+     color: #00cc99;
+     text-decoration: none;
+     font-weight: bold;
+   }
+   
+   #publications a:hover {
+     text-decoration: underline;
+   } 
+   
+   #education {
+     padding: 10px 10px;
+     max-width: 800px;
+     margin: auto;
+   }
+   
+   #education h2 {
+     text-align: center;
+     color: #0066cc;
+     margin-bottom: 30px;
+   }
+   
+   #education ul {
+     list-style-type: disc;
+     padding-left: 20px;
+     line-height: 1.6;
+   }
+   
+   #education ol {
+     padding-left: 20px;
+     margin-top: 10px;
+     line-height: 1.5;
+   }
+   
+   #education li strong {
+     color: #00cc99;
+   }
+   
+   #projects {
+     padding: 10px 10px;
+     max-width: 800px;
+     margin: auto;
+   }
+   
+   #projects h2 {
+     text-align: center;
+     color: #0066cc;
+     margin-bottom: 30px;
+   }
+   
+   #projects ul {
+     list-style-type: disc;
+     padding-left: 20px;
+     line-height: 1.6;
+   }
+   
+   #projects li strong {
+     color: #00cc99;
+   }
+   
+   #awards {
+     padding: 10px 10px;
+     max-width: 800px;
+     margin: auto;
+   }
+   
+   #awards h2 {
+     text-align: center;
+     color: #0066cc;
+     margin-bottom: 30px;
+   }
+   
+   #awards ul {
+     list-style-type: disc;
+     padding-left: 20px;
+     line-height: 1.6;
+   }
+  
+  
+  </style>
+</head>
+<body>
+  
+  <header>
+    <h1>My PORTFOLIO</h1>
+    <nav>
+      <a onclick="showSection('home')">Home</a>
+      <a onclick="showSection('about')">About</a>
+      <a onclick="showSection('education')">Education</a>
+      <a onclick="showSection('projects')">Projects</a>
+      <a onclick="showSection('gallery')">Gallery</a>
+      <a onclick="showSection('blog')">Blog</a>
+      <a onclick="showSection('awards')">Honors & Awards</a>
+      <a onclick="showSection('publications')">Publications</a>
+      <a onclick="showSection('contact')">Contact</a>      
+      <a onclick="showAll()">Show All</a>
+    </nav>
+  </header>
+  
+  <section id="home">
+    <img src="assets/images/myphoto.jpeg" alt="My Profile Photo">
+    <h2>Hi, I'm Manu Prakash Maurya</h2>
+    <p>Welcome to my personal portfolio website! I'm passionate about technology, traveling, and sharing ideas.</p>
+  </section>
+  
+  <section id="about">
+    <h2>About Me</h2>
+    <p>
+      I’m a professional with interests in solar PV research, Solar cells and modules inspection through imaging (Electroluminescence (EL), Photoluminescence (PL), and Thermal Imaging), traveling, and writing. This website showcases my work, projects, and passions. I believe in creativity blended with professionalism. A hardcore renewable energy enthusiast specializing in solar energy systems (Pre & Post quality inspection of 
+cells/modules) and an electrical engineer from the core. Learning methods to decrease CO2 levels in the 
+environment and implementing them is my zeal. Looking for opportunities in the clean energy sector. 
+    </p>
+  </section>
+  
+  <section id="education">
+    <h2>Education</h2>
+      <ul>
+        <li>
+          <strong>Indian Institute of Technology (IIT) Mandi, Mandi, Himachal Pradesh</strong><br>
+          PhD in Electrical Engineering Department<br>
+          <em>Feb 2023 – Present</em><br>
+          Research Area:
+          <ol>
+            <li>Solar module or cells defect and degradation identification & analysis by Electroluminescence (EL) & Photoluminescence (PL)</li>
+            <li>Solar PV module manufacturing from cell soldering to laminating, also pre and post EL inspection</li>
+            <li>Solar module recycling: decide reuse or recycle based on inspection</li>
+          </ol>
+        </li>      
+        <li>
+          <strong>Centre for Advanced Studies, Lucknow, Uttar Pradesh, India</strong><br>
+          Masters in Technology in Energy Science and Technology; GPA: 8.85/10<br>
+          <em>Oct 2020 – Aug 2022</em><br>
+          Courses: Renewable and non-conventional energy sources, Solar energy, electrochemical energy storage systems, energy conversion and storage.
+        </li>
+        
+        <li>
+          <strong>Dr. APJ Abdul Kalam Technical University, Lucknow, Uttar Pradesh, India</strong><br>
+          Bachelor of Technology in Electrical Engineering; Per: 80.62/100<br>
+          <em>Jul 2013 – Aug 2017</em>
+        </li>
+      </ul>
+    </div>
+  </section>
+  
+  <section id="projects">
+    <h2>Projects</h2>
+    <ul>
+      <li>
+        <strong>M. Tech Project</strong> – Life cycle analysis and determining the degradation and reliability issues in a 1MW solar power plant. The plant was beside our institute; we did a survey through I-V measurements, insulation testing, and SCADA data analysis to study module degradation and life cycle. Also examined extrinsic reliability issues: corrosion, moisture ingress, glass fracture, inverter reliability, and bypass diode failure.
+      </li>
+      <li>
+        <strong>M. Tech Project</strong> – Simulation of light induced degradation in CdTe thin film sources using SCAPS-1D.
+      </li>
+      <li>
+        <strong>M. Tech Project</strong> – Making Co2O3 nanoparticles by solution combustion method for supercapacitor applications.
+      </li>
+      <li>
+        <strong>M. Tech Project</strong> – Enhanced electrocatalyst activity of Co2O3 by copper metal interlayer for electrochemical water-splitting applications.
+      </li>
+      <li>
+        <strong>M. Tech Project</strong> – MATLAB Simulink model of hybrid cell balancing for battery management system (BMS) using switched resistor for passive BMS and switched capacitor for active BMS, with MOSFET switch for hybrid BMS.
+      </li>
+      <li>
+        <strong>B. Tech Project</strong> – Automatic source changer without interrupted power supply.
+      </li>
+    </ul>
+  </section>
+  
+  
+  <section id="gallery">
+    <h2>My Gallery</h2>
+    <div class="gallery">
+      <img src="assets/images/gallery1.png" alt="Gallery Image 1">
+      <img src="assets/images/gallery2.png" alt="Gallery Image 2">
+      <img src="assets/images/gallery3.png" alt="Gallery Image 3">
+      <img src="assets/images/gallery4.png" alt="Gallery Image 4">
+    </div>
+  </section>
+  
+  <section id="blog">
+    <h2>My Blog</h2>
+    <div class="blog-post">
+      <h3>Post Title 1</h3>
+      <p>This is a sample blog post. You can write about your projects, research, or travel experiences here.</p>
+    </div>
+    <div class="blog-post">
+      <h3>Post Title 2</h3>
+      <p>Another blog post goes here. Keep updating this section with your thoughts and experiences.</p>
+    </div>
+  </section>
+  
+  <section id="awards">
+    <h2>Honors & Awards</h2>
+    <ul>
+      <li>
+      Graduate Aptitude Test in Engineering (GATE) – qualified with 92.6 percentile, March 2019.
+      </li>
+      <li>
+      Postgraduate scholarship awarded by Ministry of Human Resource and Development, India – Oct 2020 to Oct 2022.
+      </li>
+      <li>
+      Junior Research Felloships awarded by Ministry of Human Resource and Development, India – Feb 2023 to Jan 2025.
+      </li>
+      <li>
+      Senior Research Felloships awarded by Ministry of Human Resource and Development, India – Feb 2025 to Present.
+      </li>
+    </ul>
+  </section>
+  
+  
+  <section id="publications">
+    <h2>Publications</h2>
+      <ul>
+        <li>
+          <strong>M. Manu Prakash, R. Karthik, M. Gyanprakash et al.</strong>,  
+          The Copper Interlayer Tunes The Reactivity of Cobalt Oxide Towards The Oxygen Evolution Reaction,  
+          <em>Materials Today: Proceedings</em>, (2022).  
+          <a href="https://doi.org/10.1016/j.matpr.2022.10.053" target="_blank">DOI Link</a>
+        </li>
+        
+        <li>
+          <strong>M. Gyanprakash, R. Chandresh Kumar, R. Karthik, M. Manu Prakash et al.</strong>,  
+          Optimization of Ascorbic Acid in the Synthesis of Cobalt Oxide for Enhanced Electrocatalytic Activity toward the Oxygen Evolution Reaction,  
+          <em>ACS Energy & Fuels</em>, (2022).  
+          <a href="https://doi.org/10.1021/acs.energyfuels.2c03814" target="_blank">DOI Link</a>
+        </li>
+        
+        <li>
+          <strong>Dheeraj Kumar Yadav, M. Manu Prakash, R. Karthik, M. Gyanprakash et al.</strong>,  
+          Effect of fuel concentration on supercapacitor cycling of Co3O4 fabricated via solution combustion method,  
+          <em>Materials Today: Proceedings</em>, (2022).  
+          <a href="https://doi.org/10.1016/j.matpr.2022.12.267" target="_blank">DOI Link</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+  
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <p>If you would like to get in touch, please email me directly at:</p>
+    <p class="contact-email">
+      <a href="mailto:d22185@students.iitmandi.ac.in">d22185@students.iitmandi.ac.in</a>
+    </p>
+    <p>Feel free to contact me regarding projects, collaborations, or inquiries. Thank you!</p>
+  </section>
+  
+  <footer>
+    <p>&copy; 2025 My Portfolio | Designed by Me</p>
+  </footer>
+  
+  <script>
+    function showSection(id) {
+      document.querySelectorAll("section").forEach(sec => { sec.style.display = "none"; });
+      document.getElementById(id).style.display = "block";
+    }
+    function showAll() {
+      document.querySelectorAll("section").forEach(sec => { sec.style.display = "block"; });
+    }
+  </script>
+
+</body>
+</html>
