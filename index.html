@@ -1,109 +1,314 @@
-<!DOCTYPE html>
+"""
+create_portfolio_site.py
+
+What this file does
+-------------------
+1. Contains a step-by-step guide (the same steps we discussed) as comments at the top so you can read them inside Spyder.
+2. When you run this script in Spyder (Run ▶), it creates a folder `my-portfolio/` in the same directory where the script is located.
+   Inside `my-portfolio/` it will create:
+     - `index.html` (the single-file website template)
+     - `assets/images/` (empty folder where you put your images)
+     - `assets/css/` (folder for future CSS if you split files later)
+     - `README_STEP_BY_STEP.md` (a markdown file containing the step-by-step instructions for editing, previewing and deploying)
+
+How to use inside Spyder
+------------------------
+1. Open Spyder.
+2. File → New File, paste this script (or open this file from the canvas) and Save As `create_portfolio_site.py`.
+3. Press F5 (or Run ▶) to execute the script. It will create the `my-portfolio/` folder and files.
+4. Open `my-portfolio/index.html` in a browser (double-click) or run a local server:
+   - In a terminal: `python -m http.server 8000` then open `http://localhost:8000`.
+5. Edit `index.html` using Spyder (it is an HTML file, Spyder's editor can edit it). Replace placeholders, add images inside `assets/images/`.
+
+Notes
+-----
+• This script is designed so you can start editing immediately. If you want me to split CSS/JS into separate files, or configure a contact form with Formspree / Netlify, tell me and I will update the script.
+• After running, you will find a `README_STEP_BY_STEP.md` inside `my-portfolio/` that repeats the full step-by-step guidance in markdown form.
+
+"""
+
+import os
+from pathlib import Path
+
+ROOT = Path.cwd() / "my-portfolio"
+ASSETS = ROOT / "assets"
+IMAGES = ASSETS / "images"
+CSS = ASSETS / "css"
+
+# The HTML content (single-file website template). You can edit this later in Spyder.
+HTML_CONTENT = '''<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Portfolio</title>
-<style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-body { line-height:1.6; background:#f9f9f9; color:#333; }
-header { background: linear-gradient(90deg, #0066cc, #00cc99); color:white; padding:20px; text-align:center; position:sticky; top:0; z-index:1000; }
-nav a { color:white; text-decoration:none; margin:0 15px; font-weight:bold; cursor:pointer; }
-nav a:hover { text-decoration:underline; }
-section { padding:60px 20px; max-width:1000px; margin:auto; }
-h1,h2 { margin-bottom:20px; color:#0066cc; text-align:center; }
-#home { display:block; text-align:center; }
-#home img { border-radius:50%; width:150px; margin-bottom:20px; border:4px solid #00cc99; }
-.gallery { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:15px; }
-.gallery img { width:100%; border-radius:10px; box-shadow:0 4px 6px rgba(0,0,0,0.2); transition: transform 0.3s; }
-.gallery img:hover { transform: scale(1.05); }
-.blog-post { background:white; padding:20px; margin-bottom:20px; border-radius:10px; box-shadow:0 2px 4px rgba(0,0,0,0.1); }
-.blog-post h3 { margin-bottom:10px; color:#00cc99; }
-form { display:flex; flex-direction:column; max-width:500px; margin:auto; }
-form input, form textarea { padding:10px; margin-bottom:15px; border:1px solid #ccc; border-radius:5px; }
-form button { padding:10px; background:#0066cc; color:white; border:none; border-radius:5px; cursor:pointer; }
-form button:hover { background:#004080; }
-footer { text-align:center; padding:20px; background:#333; color:white; margin-top:20px; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      line-height: 1.6;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(90deg, #0066cc, #00cc99);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h1, h2 {
+      margin-bottom: 20px;
+      color: #0066cc;
+      text-align: center;
+    }
+
+    /* Home */
+    #home {
+      display: block;
+      text-align: center;
+    }
+
+    #home img {
+      border-radius: 50%;
+      width: 150px;
+      margin-bottom: 20px;
+      border: 4px solid #00cc99;
+    }
+
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Blog */
+    .blog-post {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .blog-post h3 {
+      margin-bottom: 10px;
+      color: #00cc99;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #333;
+      color: white;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-<h1>My PORTFOLIO</h1>
-<nav>
-<a onclick="showSection('home')">Home</a>
-<a onclick="showSection('about')">About</a>
-<a onclick="showSection('gallery')">Gallery</a>
-<a onclick="showSection('blog')">Blog</a>
-<a onclick="showSection('contact')">Contact</a>
-<a onclick="showAll()">Show All</a>
-</nav>
-</header>
+  <header>
+    <h1>My PORTFOLIO</h1>
+    <nav>
+      <a onclick="showSection('home')">Home</a>
+      <a onclick="showSection('about')">About</a>
+      <a onclick="showSection('gallery')">Gallery</a>
+      <a onclick="showSection('blog')">Blog</a>
+      <a onclick="showSection('contact')">Contact</a>
+      <a onclick="showAll()">Show All</a>
+    </nav>
+  </header>
 
-<section id="home">
-<img src="assets/images/myphoto.jpeg" alt="My Profile Photo">
-<h2>Hi, I'm Manu Prakash Maurya</h2>
-<p>Welcome to my personal portfolio website! I'm passionate about technology, traveling, and sharing ideas.</p>
-</section>
+  <section id="home">
+    <img src="assets/images/myphoto.jpeg" alt="My Profile Photo">
+    <h2>Hi, I'm Manu Prakash Maurya</h2>
+    <p>Welcome to my personal portfolio website! I'm passionate about technology, traveling, and sharing ideas.</p>
+  </section>
 
-<section id="about">
-<h2>About Me</h2>
-<p>I’m a professional with interests in solar PV research, Solar cells and modules inspection through imaging (Electroluminescence (EL), Photoluminescence (PL), and Thermal Imaging), traveling, and writing. This website showcases my work, projects, and passions. I believe in creativity blended with professionalism.</p>
-</section>
+  <section id="about">
+    <h2>About Me</h2>
+    <p>
+      I’m a professional with interests in solar PV research, Solar cells and modules inspection through imaging (Electroluminescence (EL), Photoluminescence (PL), and Thermal Imaging), traveling, and writing. This website showcases my work, projects, and passions. I believe in creativity blended with professionalism.
+    </p>
+  </section>
 
-<section id="gallery">
-<h2>My Gallery</h2>
-<div class="gallery">
-<img src="assets/images/gallery1.png" alt="Gallery Image 1">
-<img src="assets/images/gallery2.png" alt="Gallery Image 2">
-<img src="assets/images/gallery3.png" alt="Gallery Image 3">
-<img src="assets/images/gallery4.png" alt="Gallery Image 4">
-</div>
-</section>
+  <section id="gallery">
+    <h2>My Gallery</h2>
+    <div class="gallery">
+      <img src="assets/images/gallery1.png" alt="Gallery Image 1">
+      <img src="assets/images/gallery2.png" alt="Gallery Image 2">
+      <img src="assets/images/gallery3.png" alt="Gallery Image 3">
+      <img src="assets/images/gallery4.png" alt="Gallery Image 4">
+    </div>
+  </section>
 
-<section id="blog">
-<h2>My Blog</h2>
-<div class="blog-post">
-<h3>Post Title 1</h3>
-<p>This is a sample blog post. You can write about your projects, research, or travel experiences here.</p>
-</div>
-<div class="blog-post">
-<h3>Post Title 2</h3>
-<p>Another blog post goes here. Keep updating this section with your thoughts and experiences.</p>
-</div>
-</section>
+  <section id="blog">
+    <h2>My Blog</h2>
+    <div class="blog-post">
+      <h3>Post Title 1</h3>
+      <p>This is a sample blog post. You can write about your projects, research, or travel experiences here.</p>
+    </div>
+    <div class="blog-post">
+      <h3>Post Title 2</h3>
+      <p>Another blog post goes here. Keep updating this section with your thoughts and experiences.</p>
+    </div>
+  </section>
 
-<section id="contact">
-<h2>Contact Me</h2>
-<p>Fill out the form below. It will create a GitHub Issue so I can see your message.</p>
-<form id="contactForm">
-<input type="text" id="name" placeholder="Your Name" required>
-<input type="email" id="email" placeholder="Your Email" required>
-<textarea id="message" rows="5" placeholder="Your Message"></textarea>
-<button type="button" onclick="submitIssue()">Send Message</button>
-</form>
-</section>
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <p>If you would like to get in touch, please email me directly at:</p>
+    <p style="text-align:center; font-weight:bold; font-size:1.2em;">
+      <a href="mailto:your-email@example.com">your-email@example.com</a>
+    </p>
+    <p>Feel free to contact me regarding projects, collaborations, or inquiries. Thank you!</p>
+  </section>
 
-<footer>
-<p>&copy; 2025 My Portfolio | Designed by Me</p>
-</footer>
+  <footer>
+    <p>&copy; 2025 My Portfolio | Designed by Me</p>
+  </footer>
 
-<script>
-function showSection(id) {
-  document.querySelectorAll("section").forEach(sec => sec.style.display = "none");
-  document.getElementById(id).style.display = "block";
-}
-function showAll() {
-  document.querySelectorAll("section").forEach(sec => sec.style.display = "block");
-}
-function submitIssue() {
-  const name = encodeURIComponent(document.getElementById('name').value);
-  const email = encodeURIComponent(document.getElementById('email').value);
-  const message = encodeURIComponent(document.getElementById('message').value);
-  const url = `https://github.com/123456789manu/my-portfolio/issues/new?title=Contact%20from%20Portfolio&body=Name:${name}%0AEmail:${email}%0AMessage:${message}`;
-  window.open(url, '_blank');
-}
-</script>
+  <script>
+    function showSection(id) {
+      document.querySelectorAll("section").forEach(sec => { sec.style.display = "none"; });
+      document.getElementById(id).style.display = "block";
+    }
+    function showAll() {
+      document.querySelectorAll("section").forEach(sec => { sec.style.display = "block"; });
+    }
+  </script>
 
 </body>
 </html>
+'''
+
+
+README_CONTENT = '''# My Portfolio — Step-by-step (saved)
+
+This README contains the step-by-step instructions for editing, previewing, and deploying your single-file portfolio site.
+
+## 1) Save the file locally
+- This directory `my-portfolio/` was created by the script.
+- `index.html` is the single-file website. Open it in your editor (Spyder) and edit placeholders.
+
+## 2) Basic edits (replace placeholders)
+- Replace `[Your Name]` with your real name.
+- Replace the profile image `src` with your own image filename under `assets/images/`.
+- Edit the About text, blog post titles, and gallery captions.
+
+## 3) Add your images and assets
+- Put images inside `assets/images/`.
+- Recommended filenames used in the template: `profile-placeholder.png`, `gallery1.png`, `gallery2.png`, `gallery3.png`, `gallery4.png`.
+- Compress images before adding to keep the site fast.
+
+## 4) Quick local preview
+- Double-click `index.html` to open in a browser.
+- OR run a local server in this folder:
+  ```bash
+  cd my-portfolio
+  python -m http.server 8000
+  # then open http://localhost:8000
+  ```
+- Or use the Live Server extension in VS Code for real-time updates.
+
+## 5) Contact form options
+- Option A — mailto: (no backend): use `action="mailto:you@example.com"` in the form.
+- Option B — Formspree (recommended): change `action` to `https://formspree.io/f/your-id` and `method="POST"`.
+- Option C — Netlify Forms: add `data-netlify="true"` and a hidden `form-name` input (works when deployed to Netlify).
+
+## 6) Deploying
+- GitHub Pages: push repo and enable Pages in repository settings.
+- Netlify: drag & drop folder or connect repo for continuous deploys.
+- Vercel: import project from GitHub and deploy.
+
+## 7) Tips
+- Add meta description and OpenGraph tags for better sharing.
+- Add `alt` attributes for all images.
+- Compress images for faster loading.
+
+## 8) Next steps I can help with
+- Split CSS/JS into separate files and produce `style.css` & `script.js`.
+- Configure Formspree or Netlify form and update HTML accordingly.
+- Generate a social preview image & favicon.
+
+'''
+
+
+def safe_write(path: Path, content: str):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(content, encoding='utf-8')
+
+
+def main():
+    # Create directories
+    for p in (ROOT, ASSETS, IMAGES, CSS):
+        p.mkdir(parents=True, exist_ok=True)
+
+    # Write files
+    safe_write(ROOT / 'index.html', HTML_CONTENT)
+    safe_write(ROOT / 'README_STEP_BY_STEP.md', README_CONTENT)
+
+    # Create placeholder images so you have filenames to replace quickly
+    placeholder = IMAGES / 'profile-placeholder.png'
+    if not placeholder.exists():
+        # create small blank PNG placeholder
+        try:
+            from PIL import Image
+            img = Image.new('RGB', (400, 400), color=(220, 220, 220))
+            img.save(str(placeholder))
+            for i in range(1,5):
+                img.save(str(IMAGES / f'gallery{i}.png'))
+        except Exception:
+            # PIL not available — create empty files instead
+            for fname in ['profile-placeholder.png', 'gallery1.png', 'gallery2.png', 'gallery3.png', 'gallery4.png']:
+                (IMAGES / fname).write_bytes(b'')
+
+    print(f"Created site in: {ROOT}")
+    print("Files created: index.html, README_STEP_BY_STEP.md, assets/images/ (placeholders)")
+    print("Open create_portfolio_site.py in Spyder, run it, then open my-portfolio/index.html to preview.")
+
+
+if __name__ == '__main__':
+    main()
+
